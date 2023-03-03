@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  size: 3
+  size: 3,
+  isStarted: false
 }
 
 export const labyrinthSlice = createSlice({
@@ -10,6 +11,7 @@ export const labyrinthSlice = createSlice({
   reducers: {
     changeSize: (state, action) => {
       state.size = action.payload
+      state.isStarted = true
     }
   },
 })

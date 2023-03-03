@@ -20,12 +20,12 @@ const LabyrinthWrapper = styled.div`
 
 const Labyrinth = () => {
   
-  const size = useSelector(state => state.labyrinth.size)
+  const { size, isStarted} = useSelector(state => state.labyrinth)
   const {matrix, start, restart, directions, finish} = useLabyrinthData(size)
   
   useEffect(() => {
-    restart(size)
-  }, [size, restart])
+    if (isStarted) restart(size)
+  }, [size, restart, isStarted])
 
   return (
     <LabyrinthWrapper>
