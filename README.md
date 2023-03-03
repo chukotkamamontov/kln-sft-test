@@ -1,70 +1,77 @@
-# Getting Started with Create React App
+Задание 1.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Написать функцию-валидатор закрытых скобок, которая на вход получает строку, содержащую символы, обернутые в скобки разных типов, и определяет, что для каждой открытой скобки есть соответствующая ей закрывающая скобка (в нужном порядке). Скобки могут быть только 3 типов - (), [] и {}.
 
-## Available Scripts
+```
+"()()((()))"					            -> true
+"(-----[----(12341)---(123)--]-----())" 	-> true
+"()----((---)" 					            -> false
+"{{{---}---}----([{--}])}" 			        -> true
+"{8809890}--()--}-{--089" 			        -> false
+"---)" 						                -> false
+"--34534-" 					            	-> true
+```
 
-In the project directory, you can run:
+Реализация:
 
-### `npm start`
+```
+const isBalance = (string) => {
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+    const start = "({[";
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+    const end = "]})";
 
-### `npm test`
+    const map = {
+      "[": "]",
+      "{": "}",
+      "(": ")",
+    }  
+  
+    const queue = [];
+  
+    if(end.includes(string[0])) return false;
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    for(let i = 0; i < string.length; i++){
 
-### `npm run build`
+      let char = string[i];
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+      if (start.includes(char)) { 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+        queue.push(char); 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+      } else if (end.includes(char)){ 
 
-### `npm run eject`
+        const first = queue.pop(); 
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+        if (map[first] !== char) { 
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+          return false;
+        
+        }
+      }
+    } 
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+    return queue.length ? false : true; 
+  
+  }
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+  console.log(isBalance("()()((()))")); // true
+  console.log(isBalance("(-----[----(12341)---(123)--]-----())")) // true
+  console.log(isBalance("()----((---)")) // false
+  console.log(isBalance("{{{---}---}----([{--}])}")) // true
+  console.log(isBalance("{8809890}--()--}-{--089")) // false
+  console.log(isBalance("---)")) // false
+  console.log(isBalance("--34534-")) // true
+```
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Задание 2.
 
-### Code Splitting
+Разработать браузерную игру "Лабиринт", состоящую из поля 3х3 (предусмотреть возможность увеличения поля до произвольного размера), при начале игры на котором одна из ячеек выбирается случайным образом и назначается в качестве старта. Далее генерируются 10 случайных ходов (направления "вверх", "вниз", "влево", "вправо"), и в соответствии с этими ходами определяется финишная ячейка. Задача игрока - в уме пройти по сгенерированным ходам по полю и определить финишную ячейку. Далее пользователь нажимает на выбранную ячейку и происходит проверка, правильно ли был сделан выбор, показывается нужная ячейка, и, если пользователь угадал, выводится сообщение о победе, в противном случае - сообщение о проигрыше. Также предлагается начать игру заново.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Для рендеринга используется React, для стейт-менеджмента - Redux/ReduxToolkit. 
 
-### Analyzing the Bundle Size
+Оформление произвольное.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Пример работающего приложения в видео.
