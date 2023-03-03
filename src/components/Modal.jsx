@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import failImg from '../assets/icons/fail.png'
-import victoryImg from '../assets/icons/victory.png'
+import Alert from './Alert'
 
 const ModalWrapper = styled.div`
     background-color: blue;
@@ -12,8 +11,8 @@ const ModalWrapper = styled.div`
     opacity: 0.9;
 
     @keyframes myanimation {
-    0%   { opacity: 0; }
-    100% { opacity: 0.9; }
+        0%   { opacity: 0; }
+        100% { opacity: 0.9; }
     }
 
 .overlay {
@@ -52,7 +51,7 @@ const Modal = ({isOpen, onClose, status}) => {
     return <ModalWrapper status={status}>
                 <div className='overlay'></div>
                 <div className='modal'>
-                    {status === 'FAIL' ? <img src={failImg} alt='failure' height='50' width='50'/> : status === 'VICTORY' ? <img src={victoryImg} alt='failure' height='50' width='50'/> : "LET'S PLAY"}
+                    <Alert status={status}/>
                     <button onClick={onClose}>PLAY</button>
                 </div>
             </ModalWrapper>

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 const CellWrapper = styled.div`
-.cell {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10,10 +9,19 @@ const CellWrapper = styled.div`
   height: 64px;
   background-color: #fff;
   border: 1px solid grey;
-}
-.cell:hover {
-  background-color: #458ee1;  
-  transition: all 600ms;
+  &:hover {
+    background-color: #458ee1;  
+    transition: all 600ms;
+  }
+  .title {
+    position: relative;
+    top: 0px;
+    background-color: #458ee1;
+    animation: cell 1500ms ease-in-out;
+    @keyframes cell {
+      0%   { top: 20px; }
+      100% { top: 0px; }
+    }
 }
 `
 
@@ -34,9 +42,7 @@ const Cell = ({ data, isStart, isFinish, changeStatus}) => {
 
   return (
     <CellWrapper onClick={showResult}>
-      <div className='cell'>
-      {result && <div>{result}</div>}
-      </div>
+        {result && <div className='title'>{result}</div>}
     </CellWrapper>
   )
 }
